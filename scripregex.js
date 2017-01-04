@@ -39,31 +39,31 @@
     {"regex":/Hag(gai|\.)?\s/gi,                        "speak":"Hag eye",              "name":"Haggai",        "num":37,   "fn":"hag"},
     {"regex":/Zec(h|hariah)?\.?\s/gi,                   "speak":"Zechariah",            "name":"Zechariah",     "num":38,   "fn":"zec"},
     {"regex":/Mal(achi|\.)?\s/gi,                       "speak":"Malachi",              "name":"Malachi",       "num":39,   "fn":"mal"},
-    //{"regex":/Matt\.\s/gi,"speak":"Matthew"},
-    /* Mark */
-    /* Luke */
-    /* John */
-    /* Acts */
-    //{"regex":/Rom\.\s/gi,"speak":"Romans"},
-    //{"regex":/1\sCor\.\s/gi,"speak":"First Corinthians"},
-    //{"regex":/2\sCor\.\s/gi,"speak":"Second Corinthians"},
-    //{"regex":/Gal\.\s/gi,"speak":"Galatians"},
-    //{"regex":/Eph\.\s/gi,"speak":"Ephesians"},
-    //{"regex":/Phil\.\s/gi,"speak":"Phillipians"},
-    //{"regex":/Col\.\s/gi,"speak":"Colossians"},
-    //{"regex":/1\sThess\.\s/gi,"speak":"First Thessalonians"},
-    //{"regex":/2\sThess\.\s/gi,"speak":"Second Thessalonians"},
-    //{"regex":/1\sTim\.\s/gi,"speak":"First Timothy"},
-    //{"regex":/2\sTim\.\s/gi,"speak":"Second Timothy"},
-    // TODO: Titus
-    // TODO: Philemon
-    //{"regex":/Heb\.\s/gi,"speak":"Hebrews"},
-    //{"regex":/Jas\.\s/gi,"speak":"James"},
-    //{"regex":/1\sPet\.\s/gi,"speak":"First Peter"},
-    //{"regex":/2\sPet\.\s/gi,"speak":"Second Peter"},
-    //{"regex":/1\sJohn\s/gi,"speak":"First John"},
-    //{"regex":/2\sJohn\s/gi,"speak":"Second John"},
-    //{"regex":/3\sJohn\s/gi,"speak":"Third John"},
-    // TODO: Jude
-    {"regex":/Re(v|velation)?\.?\s/gi,          "speak":"Revelation",               "name":"Revelation",    "num":66,   "fn":"re"}
+    {"regex":/(Mt|Mat|Matt|Matthew){1}\.?\s/gi,         "speak":"Matthew",              "name":"Matthew",       "num":40,   "fn":"mt"},
+    {"regex":/(Mr|Mar|Mark){1}\.?\s/gi,                 "speak":"Mark",                 "name":"Mark",          "num":41,   "fn":"mr"},
+    {"regex":/Lu(ke|\.)?\s/gi,                          "speak":"Luke",                 "name":"Luke",          "num":42,   "fn":"lu"},
+    {"regex":/Jo(h|hn)?\.?\s/gi,                        "speak":"John",                 "name":"John",          "num":43,   "fn":"joh"},
+    {"regex":/Ac(t|ts)?\.?\s/gi,                        "speak":"Acts",                 "name":"Acts",          "num":44,   "fn":"ac"},
+    {"regex":/Ro(m|man|mans)?\.?\s/gi,                  "speak":"Romans",               "name":"Romans",        "num":45,   "fn":"ro"},
+    {"regex":/1\s?Co(r|rinth|rinthians)?\.?\s/gi,       "speak":"First Corinthians",    "name":"1 Corinthians", "num":46,   "fn":"1co"},
+    {"regex":/2\s?Co(r|rinth|rinthians)?\.?\s/gi,       "speak":"Second Corinthians",   "name":"2 Corinthians", "num":47,   "fn":"2co"},
+    {"regex":/Ga(l|lation|lations)?\.?\s/gi,            "speak":"Galatians",            "name":"Galatians",     "num":48,   "fn":"ga"},
+    {"regex":/Ep(h|hesian|hesians)?\.?\s/gi,            "speak":"Ephesians",            "name":"Ephesians",     "num":49,   "fn":"eph"},
+    {"regex":/(Php|Phil|Phill|Phillipians){1}\.?\s/gi,  "speak":"Phillipians",          "name":"Phillipians",   "num":50,   "fn":"php"},
+    {"regex":/Col(os|oss|ossian|ossians)?\.?\s/gi,      "speak":"Colossians",           "name":"Colossians",    "num":51,   "fn":"col"},
+    {"regex":/1\s?Th(es|ess|essalonians)?\.?\s/gi,      "speak":"First Thessalonians",  "name":"1 Thessalonians", "num":52, "fn":"1th"},
+    {"regex":/2\s?Th(es|ess|essalonians)?\.?\s/gi,      "speak":"Second Thessalonians", "name":"2 Thessalonians", "num":53, "fn":"2th"},
+    {"regex":/1\s?Ti(m|mothy)?\.?\s/gi,                 "speak":"First Timothy",        "name":"1 Timothy",     "num":54,   "fn":"1ti"},
+    {"regex":/2\s?Ti(m|mothy)?\.?\s/gi,                 "speak":"Second Timothy",       "name":"2 Timothy",     "num":55,   "fn":"2ti"},
+    {"regex":/Tit(us|\.)?\s/gi,                         "speak":"Titus",                "name":"Titus",         "num":56,   "fn":"tit"},
+    {"regex":/(Phm|Philemon){1}\.?\s/gi,                "speak":"Philemon",             "name":"Philemon",      "num":57,   "fn":"phm"},
+    {"regex":/He(b|brew|brews)?\.?\s/gi,                "speak":"Hebrews",              "name":"Hebrews",       "num":58,   "fn":"heb"},
+    {"regex":/(Ja|Jas|Jam|Jame|James){1}\.?\s/gi,       "speak":"James",                "name":"James",         "num":59,   "fn":"jas"},
+    {"regex":/1\s?Pe(t|te|ter)?\.?\s/gi,                "speak":"First Peter",          "name":"1 Peter",       "num":60,   "fn":"1pe"},
+    {"regex":/2\s?Pe(t|te|ter)?\.?\s/gi,                "speak":"Second Peter",         "name":"2 Peter",       "num":61,   "fn":"2pe"},
+    {"regex":/1\s?Jo(h|hn)?\.?\s/gi,                    "speak":"First John",           "name":"1 John",        "num":62,   "fn":"1jo"},
+    {"regex":/2\s?Jo(h|hn)?\.?\s/gi,                    "speak":"Second John",          "name":"2 John",        "num":63,   "fn":"2jo"},
+    {"regex":/3\s?Jo(h|hn)?\.?\s/gi,                    "speak":"Third John",           "name":"3 John",        "num":64,   "fn":"3jo"},
+    {"regex":/Jude\s/gi,                                "speak":"Jude",                 "name":"Jude",          "num":65,   "fn":"jude"},
+    {"regex":/Re(v|velation)?\.?\s/gi,                  "speak":"Revelation",           "name":"Revelation",    "num":66,   "fn":"re"}
 ]
