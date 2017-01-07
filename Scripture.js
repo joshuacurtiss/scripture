@@ -53,7 +53,10 @@ class Scripture {
         return this.book && this.chapter && (this.verses.length>0);
     }
     toString() {
-        return `${this.book} ${this.chapter}:${this.versesToString()}`;
+        return `${this.book.name} ${this.chapter}:${this.versesToString()}`;
+    }
+    toAbbrevString() {
+        return `${this.book.symbol}${this.chapter}:${this.versesToString()}`.replace(/\s/g,"");
     }
 }
 

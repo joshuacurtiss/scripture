@@ -8,6 +8,9 @@ class BibleBook {
         this.noch=noch||false;
         return this;
     }
+    match(text) {
+        return this.regex.test(text);
+    }
 }
 
 module.exports=BibleBook;
