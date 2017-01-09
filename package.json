@@ -1,0 +1,16 @@
+{
+  "name": "khmisc",
+  "version": "1.0.0",
+  "description": "Miscellaneous scripts.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joshuacurtiss/kingdom-hall.git"
+  },
+  "author": "Josh Curtiss <josh@curtiss.me>",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.17.1",
+    "moment-duration-format": "^1.3.0"
+  }
+}
