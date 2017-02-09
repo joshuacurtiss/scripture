@@ -1,9 +1,58 @@
 let Scripture=require("./Scripture.js");
 let BibleBook=require("./BibleBook.js");
 
-const SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)/igm;
-const CHAPTERVERSE_REGEX = /(\d+)\s*[:\.]([\d\s\-,]+)/g;
-const BIBLEBOOKS = [
+class ScriptureUtil {
+
+    constructor(videopath) {
+        this.videopath=videopath||"";
+        return this;
+    }
+
+    /*  
+     *  parseScripture:  Receives text and parses it into an array of Scripture objects.
+     *  It outputs an array even if only one scripture is matched. 
+     * 
+     */
+    parseScriptures(text) {
+        var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, b;
+        while(scripmatch=scripRE.exec(text)) {
+            b=this.findBibleBook(scripmatch[1]);
+            while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
+                s=new Scripture(b,cvmatch[1],cvmatch[2]);
+                if(s.valid()) scriptures.push(s);
+            }
+        }
+        return scriptures;
+    }
+
+    /*
+     *  getScriptureRegEx: Takes the simpler SCRIPTURE_REGEX constant and subs out the \w+ (word) 
+     *  placeholder with all of the exact scripture regexes. This way it only matches real Bible books.
+     * 
+     */
+    getScriptureRegEx() {
+        var booksrearray=[];
+        for( var b of ScriptureUtil.BIBLEBOOKS ) booksrearray.push(b.regex.source);
+        return RegExp(ScriptureUtil.SCRIPTURE_REGEX.source.replace("\\w+",booksrearray.join("|")),ScriptureUtil.SCRIPTURE_REGEX.flags);
+    }
+
+    /*
+     *  findBibleBook: Receives text and determines what BibleBook object it matches.
+     * 
+     */
+    findBibleBook(txt) {
+        var b=null;
+        for( var i=0 ; i<ScriptureUtil.BIBLEBOOKS.length && !b ; i++ ) {
+            if( ScriptureUtil.BIBLEBOOKS[i].match(txt) ) b=ScriptureUtil.BIBLEBOOKS[i];
+        }
+        return b;
+    }
+
+}
+
+ScriptureUtil.SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)/igm;
+ScriptureUtil.CHAPTERVERSE_REGEX = /(\d+)\s*[:\.]([\d\s\-,]+)/g;
+ScriptureUtil.BIBLEBOOKS = [
     new BibleBook(  1,  "Genesis",      "ge",   "Genesis",              /Ge(?:n|nesis)?\.?/i   ),
     new BibleBook(  2,  "Exodus",       "ex",   "Exodus",               /Ex(?:odus)?\.?/i ),
     new BibleBook(  3,  "Leviticus",    "le",   "Leviticus",            /Le(?:v|viticus)?\.?/i ),
@@ -72,51 +121,4 @@ const BIBLEBOOKS = [
     new BibleBook( 66,  "Revelation",   "re",   "Revelation",           /Re(?:v|velation)?\.?/i )
 ];
 
-/*  
- *  parseScripture:  Receives text and parses it into an array of Scripture objects.
- *  It outputs an array even if only one scripture is matched. 
- * 
- */
-function parseScriptures(text) {
-    var scriptures=[], scripRE=getScriptureRegEx(), scripmatch, s, cvmatch, b;
-    while(scripmatch=scripRE.exec(text)) {
-        b=findBibleBook(scripmatch[1]);
-        while( cvmatch=CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
-            s=new Scripture(b,cvmatch[1],cvmatch[2]);
-            if(s.valid()) scriptures.push(s);
-        }
-    }
-    return scriptures;
-}
-
-/*
- *  getScriptureRegEx: Takes the simpler SCRIPTURE_REGEX constant and subs out the \w+ (word) 
- *  placeholder with all of the exact scripture regexes. This way it only matches real Bible books.
- * 
- */
-function getScriptureRegEx() {
-    var booksrearray=[];
-    for( var b of BIBLEBOOKS ) booksrearray.push(b.regex.source);
-    return RegExp(SCRIPTURE_REGEX.source.replace("\\w+",booksrearray.join("|")),SCRIPTURE_REGEX.flags);
-}
-
-/*
- *  findBibleBook: Receives text and determines what BibleBook object it matches.
- * 
- */
-function findBibleBook(txt) {
-    var b=null;
-    for( var i=0 ; i<BIBLEBOOKS.length && !b ; i++ ) {
-        if( BIBLEBOOKS[i].match(txt) ) b=BIBLEBOOKS[i];
-    }
-    return b;
-}
-
-module.exports={
-    SCRIPTURE_REGEX: SCRIPTURE_REGEX,
-    CHAPTERVERSE_REGEX: CHAPTERVERSE_REGEX,
-    BIBLEBOOKS: BIBLEBOOKS,
-    parseScriptures: parseScriptures,
-    getScriptureRegEx: getScriptureRegEx,
-    findBibleBook: findBibleBook
-}
+module.exports=ScriptureUtil;
