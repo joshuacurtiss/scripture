@@ -1,11 +1,30 @@
 let Scripture=require("./Scripture.js");
+let ScriptureVideo=require("./ScriptureVideo.js");
 let BibleBook=require("./BibleBook.js");
+let fs=require("fs-extra");
 
 class ScriptureUtil {
 
     constructor(videopath) {
-        this.videopath=videopath||"";
+        // Video path is the path under which all video files are housed. Subdirectories ok.
+        this.videopath=videopath;
         return this;
+    }
+
+    get videopath(){return this._videopath}
+    set videopath(path) {
+        this._videopath=path||"";
+        // Keep a list of all the videos
+        var pathwalk=fs.walkSync(this.videopath);
+        var videos=[], webvtts=[], f, ext;
+        for( var path of pathwalk ) {
+            f=path.split("/").pop();
+            ext=f.split(".").pop().toLowerCase();
+            if( ScriptureUtil.VIDEOEXT.indexOf(ext)>=0 ) videos.push(path);
+            else if( ScriptureUtil.WEBVTTEXT.indexOf(ext)>=0 ) webvtts.push(path);
+        }
+        this.videos=videos.reverse(); // Reverse to get higher def versions as first choice.
+        this.webvtts=webvtts;
     }
 
     /*  
@@ -16,7 +35,7 @@ class ScriptureUtil {
     parseScriptures(text) {
         var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, b;
         while(scripmatch=scripRE.exec(text)) {
-            b=this.findBibleBook(scripmatch[1]);
+            b=this.getBibleBook(scripmatch[1]);
             while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
                 s=new Scripture(b,cvmatch[1],cvmatch[2]);
                 if(s.valid()) scriptures.push(s);
@@ -37,10 +56,10 @@ class ScriptureUtil {
     }
 
     /*
-     *  findBibleBook: Receives text and determines what BibleBook object it matches.
+     *  getBibleBook: Receives text and determines what BibleBook object it matches.
      * 
      */
-    findBibleBook(txt) {
+    getBibleBook(txt) {
         var b=null;
         for( var i=0 ; i<ScriptureUtil.BIBLEBOOKS.length && !b ; i++ ) {
             if( ScriptureUtil.BIBLEBOOKS[i].match(txt) ) b=ScriptureUtil.BIBLEBOOKS[i];
@@ -48,10 +67,37 @@ class ScriptureUtil {
         return b;
     }
 
+    /*
+     *  createScriptureVideo: Receives a scripture and returns a ScriptureVideo object
+     *  that knows how to exactly play that scripture from the video.
+     * 
+     */
+    createScriptureVideo(scripture) {
+        // RegEx: /something_BOOKNUM_BOOKSYMBOL_something_CHAPTER_r999p.ext
+        if( scripture.valid() ) {
+            var baseFileRegex=
+                "\/\\w+_"+
+                "0".repeat(2-scripture.book.num.toString().length)+scripture.book.num+"_"+
+                scripture.book.symbol+"_"+
+                "\\w+_"+
+                "0".repeat(2-scripture.chapter.toString().length)+scripture.chapter+"_"+
+                "r\\d{3}p\\.\\w{3}";
+            var videoRegex=new RegExp(baseFileRegex+"$","i");
+            var webvttRegex=new RegExp(baseFileRegex+"\\.\\w{3,6}$","i");
+            var videoFile=this.videos.find((value)=>{return videoRegex.test(value)});
+            var webvttFile=this.webvtts.find((value)=>{return webvttRegex.test(value)});
+            // TODO: Handle if file doesn't exist, create webvtt on the fly.
+            var webvtt=fs.readFileSync(webvttFile,"UTF-8");
+            return new ScriptureVideo(scripture,videoFile,webvtt);
+        }
+    }
+
 }
 
 ScriptureUtil.SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)/igm;
 ScriptureUtil.CHAPTERVERSE_REGEX = /(\d+)\s*[:\.]([\d\s\-,]+)/g;
+ScriptureUtil.VIDEOEXT = ["mp4","m4v","mov"];
+ScriptureUtil.WEBVTTEXT = ["webvtt","vtt"];
 ScriptureUtil.BIBLEBOOKS = [
     new BibleBook(  1,  "Genesis",      "ge",   "Genesis",              /Ge(?:n|nesis)?\.?/i   ),
     new BibleBook(  2,  "Exodus",       "ex",   "Exodus",               /Ex(?:odus)?\.?/i ),
