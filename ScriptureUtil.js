@@ -75,19 +75,24 @@ class ScriptureUtil {
     createScriptureVideo(scripture) {
         // RegEx: /something_BOOKNUM_BOOKSYMBOL_something_CHAPTER_r999p.ext
         if( scripture.valid() ) {
+            var booknum=(scripture.book.num<10?"0":"")+scripture.book.num.toString();
+            var chapter=(scripture.chapter<10?"0":"")+scripture.chapter.toString();
             var baseFileRegex=
                 "\/\\w+_"+
-                "0".repeat(2-scripture.book.num.toString().length)+scripture.book.num+"_"+
+                booknum+"_"+
                 scripture.book.symbol+"_"+
                 "\\w+_"+
-                "0".repeat(2-scripture.chapter.toString().length)+scripture.chapter+"_"+
+                chapter+"_"+
                 "r\\d{3}p\\.\\w{3}";
             var videoRegex=new RegExp(baseFileRegex+"$","i");
             var webvttRegex=new RegExp(baseFileRegex+"\\.\\w{3,6}$","i");
             var videoFile=this.videos.find((value)=>{return videoRegex.test(value)});
             var webvttFile=this.webvtts.find((value)=>{return webvttRegex.test(value)});
             // TODO: Handle if file doesn't exist, create webvtt on the fly.
-            var webvtt=fs.readFileSync(webvttFile,"UTF-8");
+            var webvtt="";
+            try {
+                webvtt=fs.readFileSync(webvttFile,"UTF-8");
+            } catch (error) {}
             return new ScriptureVideo(scripture,videoFile,webvtt);
         }
     }
