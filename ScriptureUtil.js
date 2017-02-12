@@ -28,7 +28,7 @@ class ScriptureUtil {
     }
 
     /*  
-     *  parseScripture:  Receives text and parses it into an array of Scripture objects.
+     *  parseScriptures:  Receives text and parses it into an array of Scripture objects.
      *  It outputs an array even if only one scripture is matched. 
      * 
      */
@@ -68,11 +68,11 @@ class ScriptureUtil {
     }
 
     /*
-     *  createScriptureVideo: Receives a scripture and returns a ScriptureVideo object
+     *  createVideo: Receives a scripture and returns a ScriptureVideo object
      *  that knows how to exactly play that scripture from the video.
      * 
      */
-    createScriptureVideo(scripture) {
+    createVideo(scripture) {
         // RegEx: /something_BOOKNUM_BOOKSYMBOL_something_CHAPTER_r999p.ext
         if( scripture.valid() ) {
             var booknum=(scripture.book.num<10?"0":"")+scripture.book.num.toString();
