@@ -1,3 +1,5 @@
+let BibleBook=require("./BibleBook.js");
+
 class Scripture {
     constructor(book,chapter,verses) {
         this.book=book;
@@ -50,7 +52,11 @@ class Scripture {
         return csv.join(", ");
     }
     valid() {
-        return this.book && this.chapter && (this.verses.length>0);
+        return this.book!=undefined && 
+               this.book instanceof BibleBook && 
+               this.chapter!=undefined && 
+               !isNaN(this.chapter) && 
+               this.verses.length>0;
     }
     toString() {
         return `${this.book.name} ${this.chapter}:${this.versesToString()}`;
