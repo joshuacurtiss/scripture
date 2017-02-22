@@ -2,7 +2,9 @@ const expect=require("chai").expect;
 const BibleBook=require("../BibleBook");
 const Scripture=require("../Scripture");
 
-var book=new BibleBook(1,"Genesis","ge","Genesis",/Ge(?:n|nesis)?\.?/i);
+var book=Genesis=new BibleBook(1,"Genesis","ge","Genesis",/Ge(?:n|nesis)?\.?/i);
+var Luke=new BibleBook(42,"Luke","lu","Luke",/Lu(?:ke|\.)?/i);
+var Jude=new BibleBook(65,"Jude","jude","Jude",/Jude/i,true);
 
 describe("Scripture", function() {
 
@@ -60,6 +62,22 @@ describe("Scripture", function() {
             expect(scripture.valid()).to.be.false;
         })
     });
+
+    describe("valid() range detection", function() {
+        var tests=[
+            new Scripture(Genesis,3,25),
+            new Scripture(Luke,30,1),
+            new Scripture(Luke,0,1),
+            new Scripture(Luke,1,0),
+            new Scripture(Luke,5,[36,37,38,39,40,41,42]),
+            new Scripture(Jude,2,1)
+        ];
+        tests.forEach(function(test) {
+            it(`should mark "${test.toString()}" as invalid`, function() {
+                expect(test.valid()).to.be.false;
+            });
+        });
+    })
 
     describe("set verses", function() {
         it(`should accept an array`)
