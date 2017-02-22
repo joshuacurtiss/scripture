@@ -1,12 +1,11 @@
 {
-  "name": "khmisc",
-  "description": "Miscellaneous scripts.",
-  "main": "main.js",
+  "name": "scripture",
+  "description": "Library for working with scriptures.",
   "authors": [
     "Josh Curtiss <josh@curtiss.me>"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/joshuacurtiss/kingdom-hall",
+  "homepage": "https://github.com/joshuacurtiss/scripture",
   "private": true,
   "ignore": [
     "**/.*",
