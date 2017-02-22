@@ -15,7 +15,10 @@ class ScriptureUtil {
     set videopath(path) {
         this._videopath=path||"";
         // Keep a list of all the videos
-        var pathwalk=fs.walkSync(this.videopath);
+        var pathwalk=[];
+        try {
+            pathwalk=fs.walkSync(this.videopath);
+        } catch(err) {}
         var videos=[], webvtts=[], f, ext;
         for( var path of pathwalk ) {
             f=path.split("/").pop();
