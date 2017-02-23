@@ -9,7 +9,8 @@ describe("ScriptureUtil", function() {
             "generation 3:15, 17, 20-22",
             "gen . 3:15",
             "gen hello 3:15",
-            "Just some text."
+            "Just some text.",
+            "And Gen 31:52-58 is bad because there are only 55 verses in that chapter."
         ];
         tests.forEach(function(test) {
             it(`should not match "${test}"`, function() {
