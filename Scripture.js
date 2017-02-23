@@ -11,6 +11,8 @@ class Scripture {
     set book(newBook) {if(newBook) this._book=newBook}
     get chapter() {return this._chapter}
     set chapter(newChapter) {if(newChapter) this._chapter=parseInt(newChapter)}
+    get firstverse() {return this.verses[0]}
+    get lastverse() {return this.verses[this.verses.length-1]}
     get verses() {return this._verses}
     set verses(newVerses) {
         this._verses=[];
@@ -55,8 +57,10 @@ class Scripture {
         return this.book!=undefined && 
                this.book instanceof BibleBook && 
                this.chapter!=undefined && 
+               this.chapter<=this.book.maxChapters &&
                !isNaN(this.chapter) && 
-               this.verses.length>0;
+               this.verses.length>0 &&
+               this.lastverse<=this.book.maxVersesForChapter(this.chapter);
     }
     toString() {
         return `${this.book.name} ${this.chapter}:${this.versesToString()}`;

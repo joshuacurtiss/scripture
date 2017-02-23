@@ -2,9 +2,10 @@ const expect=require("chai").expect;
 const BibleBook=require("../BibleBook");
 const Scripture=require("../Scripture");
 
-var book=Genesis=new BibleBook(1,"Genesis","ge","Genesis",/Ge(?:n|nesis)?\.?/i);
-var Luke=new BibleBook(42,"Luke","lu","Luke",/Lu(?:ke|\.)?/i);
-var Jude=new BibleBook(65,"Jude","jude","Jude",/Jude/i,true);
+var book=Genesis=new BibleBook(1,"Genesis","ge","Genesis",/Ge(?:n|nesis)?\.?/i, [31,25,24,26,24,22,24,22,29,31,31,20,18,24,21,16,27,33,38,18,34,24,20,67,34,35,46,15,35,43,55,28,20,31,29,43,36,30,23,23,57,38,34,34,28,34,31,22,33,25]);
+var Luke=new BibleBook(42,"Luke","lu","Luke",/Lu(?:ke|\.)?/i, [80,52,38,44,39,49,43,56,62,42,54,59,35,35,32,31,32,43,48,47,38,71,56,53]);
+var Jude=new BibleBook(65,"Jude","jude","Jude",/Jude/i, [25]);
+var bookWithNoVerseMax=new BibleBook(40,"Matthew","mt","Matthew",/(?:Mt|Mat|Matt|Matthew){1}\.?/i);
 
 describe("Scripture", function() {
 
@@ -77,18 +78,33 @@ describe("Scripture", function() {
 
     describe("valid() range detection", function() {
         var tests=[
-            new Scripture(Genesis,3,25),
-            new Scripture(Luke,30,1),
-            new Scripture(Luke,0,1),
-            new Scripture(Luke,1,0),
-            new Scripture(Luke,5,[36,37,38,39,40,41,42]),
-            new Scripture(Jude,2,1)
+            {scripture:new Scripture(Genesis,3,24), valid:true},
+            {scripture:new Scripture(Genesis,3,25), valid:false},
+            {scripture:new Scripture(Genesis,50,1), valid:true},
+            {scripture:new Scripture(Luke,30,1), valid:false},
+            {scripture:new Scripture(Luke,0,1), valid:false},
+            {scripture:new Scripture(Luke,1,0), valid:false},
+            {scripture:new Scripture(Luke,5,[36,37,38,39]), valid:true},
+            {scripture:new Scripture(Luke,5,[36,37,38,39,40]), valid:false},
+            {scripture:new Scripture(Jude,2,1), valid:false}
         ];
         tests.forEach(function(test) {
-            it(`should mark "${test.toString()}" as invalid`, function() {
-                expect(test.valid()).to.be.false;
+            it(`should mark "${test.scripture.toString()}" as ${test.valid?"valid":"invalid"}`, function() {
+                expect(test.scripture.valid()).to.equal(test.valid);
             });
         });
+        it(`should validate a book with no verseMax set`, function() {
+            var scripture=new Scripture(bookWithNoVerseMax,5,20);
+            expect(scripture.valid()).to.be.true;
+        })
+        it(`should mark as invalid a chapter over 150 even if book verseMax is not set`, function() {
+            var scripture=new Scripture(bookWithNoVerseMax,151,20);
+            expect(scripture.valid()).to.be.false;
+        })
+        it(`should mark as invalid a verse over 199 even if book verseMax is not set`, function() {
+            var scripture=new Scripture(bookWithNoVerseMax,5,200);
+            expect(scripture.valid()).to.be.false;
+        })
     })
 
     describe("set verses", function() {
