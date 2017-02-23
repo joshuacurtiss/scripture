@@ -15,6 +15,5 @@
     "tests"
   ],
   "dependencies": {
-    "webvtt": "https://github.com/joshuacurtiss/webvtt.git#v1.0"
   }
 }
