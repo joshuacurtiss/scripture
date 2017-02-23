@@ -26,7 +26,11 @@ class BibleBook {
     }
     maxVersesForChapter(ch) {return this.maxVerses[ch-1]}
     match(text) {
-        return this.regex.test(text);
+        // When explicitly matching text to a book, add ^ and $ to always match entire string.
+        // This can avoid some bizarre false positives like Jude match De from Deuteronomy.
+        var re=new RegExp("^"+this.regex.source+"$",this.regex.flags)
+        //console.log(`Testing "${text}" with ${re} ${re.test(text)}`);
+        return re.test(text);
     }
 }
 

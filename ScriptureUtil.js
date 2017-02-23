@@ -16,9 +16,16 @@ class ScriptureUtil {
         var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, b;
         while(scripmatch=scripRE.exec(text)) {
             b=this.getBibleBook(scripmatch[1]);
-            while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
-                s=new Scripture(b,cvmatch[1],cvmatch[2]);
-                if(s.valid()) scriptures.push(s);
+            if( b.hasChapters ) {
+                while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
+                    s=new Scripture(b,cvmatch[1],cvmatch[2]);
+                    if(s.valid()) scriptures.push(s);
+                }
+            } else {
+                while( cvmatch=ScriptureUtil.VERSENOCHAPTER_REGEX.exec(scripmatch[2]) ) {
+                    s=new Scripture(b,1,cvmatch[0]);
+                    if(s.valid()) scriptures.push(s);
+                }
             }
         }
         return scriptures;
@@ -42,6 +49,7 @@ class ScriptureUtil {
     getBibleBook(txt) {
         var b=null;
         for( var i=0 ; i<ScriptureUtil.BIBLEBOOKS.length && !b ; i++ ) {
+            //console.log(`Does ${ScriptureUtil.BIBLEBOOKS[i].name} ${ScriptureUtil.BIBLEBOOKS[i].regex} match ${txt}? `)
             if( ScriptureUtil.BIBLEBOOKS[i].match(txt) ) b=ScriptureUtil.BIBLEBOOKS[i];
         }
         return b;
@@ -51,6 +59,7 @@ class ScriptureUtil {
 
 ScriptureUtil.SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)/igm;
 ScriptureUtil.CHAPTERVERSE_REGEX = /(\d+)\s*[:\.]([\d\s\-,]+)/g;
+ScriptureUtil.VERSENOCHAPTER_REGEX = /\d+\s*[\d\s\-,]*/g;
 ScriptureUtil.BIBLEBOOKS = [
     new BibleBook(  1,  "Genesis",      "ge",   "Genesis",              /Ge(?:n|nesis)?\.?/i, [31,25,24,26,24,22,24,22,29,31,31,20,18,24,21,16,27,33,38,18,34,24,20,67,34,35,46,15,35,43,55,28,20,31,29,43,36,30,23,23,57,38,34,34,28,34,31,22,33,25] ),
     new BibleBook(  2,  "Exodus",       "ex",   "Exodus",               /Ex(?:odus)?\.?/i ),
