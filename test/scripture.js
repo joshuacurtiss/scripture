@@ -89,7 +89,7 @@ describe("Scripture", function() {
             {scripture:new Scripture(Jude,2,1), valid:false}
         ];
         tests.forEach(function(test) {
-            it(`should mark "${test.scripture.toString()}" as ${test.valid?"valid":"invalid"}`, function() {
+            it(`should mark "${test.scripture.book.name} ${test.scripture.chapter}:${test.scripture.versesToString()}" as ${test.valid?"valid":"invalid"}`, function() {
                 expect(test.scripture.valid()).to.equal(test.valid);
             });
         });
