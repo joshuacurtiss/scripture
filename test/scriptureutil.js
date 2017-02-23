@@ -57,7 +57,10 @@ describe("ScriptureUtil", function() {
         var tests=[
             {text:"Jude 2 is a nice salutation.", cnt:1},
             {text:"Philemon 3 is also a nice salutation.", cnt:1},
-            {text:"Gen 3 is an entire chapter, not a single verse.", cnt:0}
+            {text:"Philemon 3; Jude 2 Two nice salutations.", cnt:2},
+            {text:"Philemon1 has no space.", cnt:1},
+            {text:"Philemon 3-5 is a range.", cnt:1},
+            {text:"Philemon 3-4, 6 is a range and list.", cnt:1}
         ];
         tests.forEach(function(test) {
             it(`should find ${test.cnt} match${test.cnt!=1?"es":""} in "${test.text}"`, function() {
@@ -66,6 +69,12 @@ describe("ScriptureUtil", function() {
                 expect(result.length).to.equal(test.cnt);
             });
         });
+        it(`should match "Gen 3" to entire chapter, Gen 3:1-24.`, function() {
+            var util=new ScriptureUtil();
+            var s=util.parseScriptures("Gen3");
+            expect(s).to.not.be.empty;
+            expect(s[0].toString()).to.equal("Genesis 3:1-24");
+        })
     })
 
 });
