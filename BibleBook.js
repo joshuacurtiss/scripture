@@ -21,8 +21,8 @@ class BibleBook {
     get maxChapters() {
         return this.maxVerses.length;
     }
-    get noch() {
-        return (this.maxChapters==1);
+    get hasChapters() {
+        return (this.maxChapters>1);
     }
     maxVersesForChapter(ch) {return this.maxVerses[ch-1]}
     match(text) {

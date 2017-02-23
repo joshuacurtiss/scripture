@@ -63,10 +63,10 @@ class Scripture {
                this.lastverse<=this.book.maxVersesForChapter(this.chapter);
     }
     toString() {
-        return `${this.book.name} ${this.chapter}:${this.versesToString()}`;
+        return `${this.book.name} ${this.book.hasChapters?(this.chapter+":"):""}${this.versesToString()}`;
     }
     toAbbrevString() {
-        return `${this.book.symbol}${this.chapter}:${this.versesToString()}`.replace(/\s/g,"");
+        return `${this.book.symbol}${this.book.hasChapters?(this.chapter+":"):""}${this.versesToString()}`.replace(/\s/g,"");
     }
 }
 
