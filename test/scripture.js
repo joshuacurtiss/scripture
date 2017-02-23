@@ -9,13 +9,25 @@ var Jude=new BibleBook(65,"Jude","jude","Jude",/Jude/i,true);
 describe("Scripture", function() {
 
     describe("toString()", function() {
-        it(`should return a normal scripture string`)
-        it(`should return a scripture string for no-chapter books`)
+        it(`should return a normal scripture string`, function() {
+            var scripture=new Scripture(book,3,[15,16,17,20]);
+            expect(scripture.toString()).to.equal("Genesis 3:15-17, 20");
+        })
+        it(`should return a scripture string for no-chapter books`, function() {
+            var scripture=new Scripture(Jude,1,2);
+            expect(scripture.toString()).to.equal("Jude 2");
+        })
     })
 
     describe("toAbbrevString()", function() {
-        it(`should return a compact scripture string`)
-        it(`should return a compact scripture string for no-chapter books`)
+        it(`should return a compact scripture string`, function() {
+            var scripture=new Scripture(book,3,[15,16,17,20]);
+            expect(scripture.toAbbrevString()).to.equal("ge3:15-17,20");
+        })
+        it(`should return a compact scripture string for no-chapter books`, function() {
+            var scripture=new Scripture(Jude,1,2);
+            expect(scripture.toAbbrevString()).to.equal("jude2");
+        })
     })
 
     describe("versesToString()", function() {

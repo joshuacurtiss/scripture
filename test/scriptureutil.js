@@ -3,17 +3,6 @@ const ScriptureUtil=require("../ScriptureUtil");
 
 describe("ScriptureUtil", function() {
 
-    describe("constructor", function() {
-        it(`should receive no parameters without crashing`, function(){
-            var test=new ScriptureUtil();
-            expect(test).to.be.ok;
-        })
-        it(`should receive a bad path without crashing`, function(){
-            var test=new ScriptureUtil("/dev/null/nogood/verybad/path");
-            expect(test).to.be.ok;
-        })
-    })
-
     describe("Ignoring bad input", function() {
         var tests=[
             "What about blah 3:15? And pex 1:2.",
@@ -53,6 +42,21 @@ describe("ScriptureUtil", function() {
             {text:"Here is Gen 3:15 as the first prophecy.", cnt:1},
             {text:"Try Gen 3:18-20, 23; 8:4-6 for more info.", cnt:2},
             {text:"Ps 119:105; John 1:1; John 3:16; 5:12-15, 18", cnt:4}
+        ];
+        tests.forEach(function(test) {
+            it(`should find ${test.cnt} match${test.cnt!=1?"es":""} in "${test.text}"`, function() {
+                var util=new ScriptureUtil();
+                var result=util.parseScriptures(test.text);
+                expect(result.length).to.equal(test.cnt);
+            });
+        });
+    })
+
+    describe("No-chapter matching", function() {
+        var tests=[
+            {text:"Jude 2 is a nice salutation.", cnt:1},
+            {text:"Philemon 3 is also a nice salutation.", cnt:1},
+            {text:"Gen 3 is an entire chapter, not a single verse.", cnt:0}
         ];
         tests.forEach(function(test) {
             it(`should find ${test.cnt} match${test.cnt!=1?"es":""} in "${test.text}"`, function() {
