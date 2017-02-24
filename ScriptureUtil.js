@@ -108,7 +108,7 @@ ScriptureUtil.BIBLEBOOKS = [
     new BibleBook( 45,  "Romans",       "ro",   "Romans",               /Ro(?:m|man|mans)?\.?/i ),
     new BibleBook( 46,  "1 Corinthians","1co",  "First Corinthians",    /1\s?Co(?:r|rinth|rinthians)?\.?/i ),
     new BibleBook( 47,  "2 Corinthians","2co",  "Second Corinthians",   /2\s?Co(?:r|rinth|rinthians)?\.?/i ),
-    new BibleBook( 48,  "Galatians",    "ga",   "Galatians",            /Ga(?:l|lation|lations)?\.?/i ),
+    new BibleBook( 48,  "Galatians",    "ga",   "Galatians",            /Ga(?:l|latian|latians)?\.?/i ),
     new BibleBook( 49,  "Ephesians",    "eph",  "Ephesians",            /Ep(?:h|hesian|hesians)?\.?/i ),
     new BibleBook( 50,  "Phillipians",  "php",  "Phillipians",          /(?:Php|Phil|Phill|Phillipians){1}\.?/i ),
     new BibleBook( 51,  "Colossians",   "col",  "Colossians",           /Col(?:os|oss|ossian|ossians)?\.?/i ),
