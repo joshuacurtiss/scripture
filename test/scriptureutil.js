@@ -77,4 +77,18 @@ describe("ScriptureUtil", function() {
         })
     })
 
+    describe("Miscellaneous scenario matches", function() {
+        var tests=[
+            {text:"Gen 3:1, 2, 4", expect:"Genesis 3:1-2, 4"},
+            {text:"Gen 8:3-11, 15", expect:"Genesis 8:3-11, 15"}
+        ];
+        tests.forEach(function(test) {
+            it(`should parse "${test.text}" to "${test.expect}"`, function() {
+                var util=new ScriptureUtil();
+                var result=util.parseScriptures(test.text);
+                expect(result.toString()).to.equal(test.expect);
+            });
+        });
+    })
+
 });

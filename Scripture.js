@@ -22,8 +22,8 @@ class Scripture {
             for( var v of newVerses.split(",") ) {
                 v=v.replace(/\s/g,"");
                 if( v.split("-").length==2 ) {
-                    var start=v.split("-")[0];
-                    var end=v.split("-")[1];
+                    var start=parseInt(v.split("-")[0]);
+                    var end=parseInt(v.split("-")[1]);
                     if( start<=end ) {
                         for( var i=start ; i<=end ; i++ ) this._verses.push(parseInt(i));
                     }
