@@ -12,7 +12,13 @@ class ScriptureUtil {
      *  It outputs an array even if only one scripture is matched. 
      * 
      */
+
     parseScriptures(text) {
+        var objs=this.parseScripturesWithIndex(text);
+        return objs.map(scripture=>scripture.obj);
+    }
+
+    parseScripturesWithIndex(text) {
         var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, b;
         while(scripmatch=scripRE.exec(text)) {
             b=this.getBibleBook(scripmatch[1]);

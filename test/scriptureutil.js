@@ -73,7 +73,7 @@ describe("ScriptureUtil", function() {
             var util=new ScriptureUtil();
             var s=util.parseScriptures("Gen3");
             expect(s).to.not.be.empty;
-            expect(s[0].obj.toString()).to.equal("Genesis 3:1-24");
+            expect(s[0].toString()).to.equal("Genesis 3:1-24");
         })
     })
 
@@ -86,7 +86,7 @@ describe("ScriptureUtil", function() {
             it(`should parse "${test.text}" to "${test.expect}"`, function() {
                 var util=new ScriptureUtil();
                 var result=util.parseScriptures(test.text)[0];
-                expect(result.obj.toString()).to.equal(test.expect);
+                expect(result.toString()).to.equal(test.expect);
             });
         });
     })
