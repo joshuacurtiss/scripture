@@ -19,12 +19,12 @@ class ScriptureUtil {
             if( b.hasChapters ) {
                 while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
                     s=new Scripture(b,cvmatch[1],cvmatch[2]);
-                    if(s.valid()) scriptures.push(s);
+                    if(s.valid()) scriptures.push({obj:s,index:scripmatch.index});
                 }
             } else {
                 while( cvmatch=ScriptureUtil.VERSENOCHAPTER_REGEX.exec(scripmatch[2]) ) {
                     s=new Scripture(b,1,cvmatch[0]);
-                    if(s.valid()) scriptures.push(s);
+                    if(s.valid()) scriptures.push({obj:s,index:scripmatch.index});
                 }
             }
         }
