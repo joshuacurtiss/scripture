@@ -1,6 +1,6 @@
 {
   "name": "scripture",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Library for working with scriptures.",
   "scripts": {
     "test": "node_modules/.bin/mocha"
