@@ -19,18 +19,24 @@ class ScriptureUtil {
     }
 
     parseScripturesWithIndex(text) {
-        var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, b;
+        var scriptures=[], scripRE=this.getScriptureRegEx(), scripmatch, s, cvmatch, cvRegex, b;
         while(scripmatch=scripRE.exec(text)) {
             b=this.getBibleBook(scripmatch[1]);
-            if( b.hasChapters ) {
-                while( cvmatch=ScriptureUtil.CHAPTERVERSE_REGEX.exec(scripmatch[2]) ) {
-                    s=new Scripture(b,cvmatch[1],cvmatch[2]);
-                    if(s.valid()) scriptures.push({obj:s,match:scripmatch[0],index:scripmatch.index});
-                }
-            } else {
-                while( cvmatch=ScriptureUtil.VERSENOCHAPTER_REGEX.exec(scripmatch[2]) ) {
-                    s=new Scripture(b,1,cvmatch[0]);
-                    if(s.valid()) scriptures.push({obj:s,match:scripmatch[0],index:scripmatch.index});
+            cvRegex = b.hasChapters ? ScriptureUtil.CHAPTERVERSE_REGEX : ScriptureUtil.VERSENOCHAPTER_REGEX;
+            while( cvmatch=cvRegex.exec(scripmatch[2]) ) {
+                if (b.hasChapters) s=new Scripture(b,cvmatch[1],cvmatch[2]);
+                else s=new Scripture(b,1,cvmatch[0]);
+                var cvText=cvmatch[0].trim();
+                var cvLen=cvText.length;
+                if(s.valid()) {
+                    var index=scripmatch.index;
+                    var match=scripmatch[0].substr(0,scripmatch[0].indexOf(cvText)+cvLen);
+                    if( cvmatch.index ) {
+                        index=scripmatch[0].indexOf(scripmatch[2])+scripmatch[2].indexOf(cvText);
+                        match=scripmatch[0].substr(index,cvLen);
+                        index=index+scripmatch.index;
+                    }
+                    scriptures.push({obj:s,match:match,index:index});
                 }
             }
         }
