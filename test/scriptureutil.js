@@ -41,13 +41,14 @@ describe("ScriptureUtil", function() {
     describe("Multiple matching", function() {
         var tests=[
             {text:"Here is Gen 3:15 as the first prophecy.", cnt:1},
+            {text:"The first prophecy is Gen 3:15.", cnt:1},
             {text:"Try Gen 3:18-20, 23; 8:4-6 for more info.", cnt:2},
             {text:"Ps 119:105; John 1:1; John 3:16; 5:12-15, 18", cnt:4}
         ];
         tests.forEach(function(test) {
             it(`should find ${test.cnt} match${test.cnt!=1?"es":""} in "${test.text}"`, function() {
                 var util=new ScriptureUtil();
-                var result=util.parseScriptures(test.text);
+                var result=util.parseScripturesWithIndex(test.text);
                 expect(result.length).to.equal(test.cnt);
             });
         });
