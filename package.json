@@ -1,7 +1,7 @@
 {
   "name": "scripture",
-  "version": "1.0.0",
-  "description": "Library for working with scriptures.",
+  "version": "1.0.1",
+  "description": "Tool for parsing scriptures.",
   "scripts": {
     "test": "node_modules/.bin/mocha"
   },
