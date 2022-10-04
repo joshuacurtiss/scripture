@@ -69,7 +69,7 @@ class ScriptureUtil {
 
 }
 
-ScriptureUtil.SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)/igm;
+ScriptureUtil.SCRIPTURE_REGEX = /\b(\w+)\s*(\d[\d\s\-\.,;:]*)\b/igm;
 ScriptureUtil.CHAPTERVERSE_REGEX = /(\d+)\s*[:\.]([\d\s\-,]+)/g;
 ScriptureUtil.VERSENOCHAPTER_REGEX = /\d+\s*[\d\s\-,]*/g;
 ScriptureUtil.BIBLEBOOKS = [
