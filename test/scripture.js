@@ -62,10 +62,6 @@ describe("Scripture", function() {
             scripture.verses=[15,16,17,19,20];
             expect(scripture.valid()).to.be.false;
         })
-        it(`should return false for scripture with missing or empty verses array`, function(){
-            var scripture=new Scripture(book,3);
-            expect(scripture.valid()).to.be.false;
-        })
         it(`should return false for non-numeric chapter`, function(){
             var scripture=new Scripture(book,"x",[15,16,17,19,20]);
             expect(scripture.valid()).to.be.false;

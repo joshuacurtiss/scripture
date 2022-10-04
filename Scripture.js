@@ -31,6 +31,10 @@ class Scripture {
                     this._verses.push(parseInt(v));
                 }
             }
+        } else if( newVerses===undefined && this.book ) {
+            for( var v=1 ; v<=this.book.maxVersesForChapter(this.chapter) ; v++ ) {
+                this._verses.push(v);
+            }
         }
     }
     versesToString() {
