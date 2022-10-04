@@ -27,8 +27,9 @@ class Scripture {
                     if( start<=end ) {
                         for( var i=start ; i<=end ; i++ ) this._verses.push(parseInt(i));
                     }
+                } else if( !isNaN(parseInt(v)) ) {
+                    this._verses.push(parseInt(v));
                 }
-                else this._verses.push(parseInt(v));
             }
         }
     }
