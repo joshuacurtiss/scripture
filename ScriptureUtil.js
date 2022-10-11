@@ -122,7 +122,7 @@ ScriptureUtil.BIBLEBOOKS = [
     new BibleBook( 47,  "2 Corinthians","2co",  "Second Corinthians",   /2\s?Co(?:r|rinth|rinthians)?\.?/i, [24,17,18,18,21,18,16,24,15,18,33,21,14] ),
     new BibleBook( 48,  "Galatians",    "ga",   "Galatians",            /Ga(?:l|latian|latians)?\.?/i, [24,21,29,31,26,18] ),
     new BibleBook( 49,  "Ephesians",    "eph",  "Ephesians",            /Ep(?:h|hesian|hesians)?\.?/i, [23,22,21,32,33,24] ),
-    new BibleBook( 50,  "Phillipians",  "php",  "Phillipians",          /(?:Php|Phil|Phill|Phillipians){1}\.?/i, [30,30,21,23] ),
+    new BibleBook( 50,  "Philippians",  "php",  "Philippians",          /(?:Php|Phil|Philippians){1}\.?/i, [30,30,21,23] ),
     new BibleBook( 51,  "Colossians",   "col",  "Colossians",           /Col(?:os|oss|ossian|ossians)?\.?/i, [29,23,25,18] ),
     new BibleBook( 52,  "1 Thessalonians", "1th", "First Thessalonians", /1\s?Th(?:es|ess|essalonians)?\.?/i, [10,20,13,18,28] ),
     new BibleBook( 53,  "2 Thessalonians", "2th", "Second Thessalonians", /2\s?Th(?:es|ess|essalonians)?\.?/i, [12,17,18] ),
